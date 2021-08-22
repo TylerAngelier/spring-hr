@@ -1,0 +1,6 @@
+/Users/tylerangelier/development/oci/spring-hr/src/main/java/dev/trangelier/hr/model/Region.java
+/Users/tylerangelier/development/oci/spring-hr/src/main/java/dev/trangelier/hr/HrApplication.java
+/Users/tylerangelier/development/oci/spring-hr/src/main/java/dev/trangelier/hr/exception/NotFoundException.java
+/Users/tylerangelier/development/oci/spring-hr/src/main/java/dev/trangelier/hr/repository/RegionRepository.java
+/Users/tylerangelier/development/oci/spring-hr/src/main/java/dev/trangelier/hr/configuration/DatabaseConfiguration.java
+/Users/tylerangelier/development/oci/spring-hr/src/main/java/dev/trangelier/hr/controller/RegionController.java

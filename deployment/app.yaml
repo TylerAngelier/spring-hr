@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-hr
+  namespace: traefik
+  labels:
+    app: spring-hr
+spec:
+  selector:
+    matchLabels:
+      name: spring-hr
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        name: spring-hr
+    spec:
+      containers:
+        - name: spring-hr
+          image: iad.ocir.io/idf7f4b9nekk/oci-dev/spring-hr:0.1.1
+          readinessProbe:
+            httpGet:
+              path: /hr/actuator/health
+              port: 8080
+            timeoutSeconds: 5
+            periodSeconds: 15
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /hr/actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 8
+            periodSeconds: 10
+            failureThreshold: 2
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: hr-db-url-pass
+                  key: url
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hr-db-url-pass
+                  key: password
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-hr
+  namespace: traefik
+spec:
+  type: ClusterIP
+  selector:
+    name: spring-hr
+  ports:
+    - protocol: TCP
+      port: 8080
+      name: api

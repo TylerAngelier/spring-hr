@@ -1,0 +1,40 @@
+#
+# Configure the server
+#
+server:
+  port: 8080
+  servlet:
+    context-path: /hr
+
+#
+# Spring Configuration
+#
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/ORCLPDB1
+    username: hr
+    password: super-secret-password
+    driver-class-name: oracle.jdbc.OracleDriver
+  hikari:
+    minimumIdle: 5
+    maximumPoolSize: 20
+    idleTimeout: 30000
+    maxLifetime: 2000000
+    connectionTimeout: 30000
+    poolName: SpringHr
+  liquibase:
+    changeLog: classpath:db/changelog.oracle.xml
+
+#
+# Actuator
+#
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true

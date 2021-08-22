@@ -1,0 +1,6 @@
+dev/trangelier/hr/configuration/DatabaseConfiguration.class
+dev/trangelier/hr/HrApplication.class
+dev/trangelier/hr/model/Region.class
+dev/trangelier/hr/exception/NotFoundException.class
+dev/trangelier/hr/repository/RegionRepository.class
+dev/trangelier/hr/controller/RegionController.class

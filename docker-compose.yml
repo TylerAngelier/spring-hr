@@ -1,0 +1,32 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  oracle-database-xe-18400-slim:
+    container_name: oracle-database-xe-18400-slim
+    image: gvenzl/oracle-xe:18.4.0-slim
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=password
+      - ORACLE_DATABASE=ORCLPDB1
+    volumes:
+      - ./src/main/resources/db/startup:/container-entrypoint-startdb.d
+      - 18xe-oradata:/opt/oracle/oradata
+    healthcheck:
+      test: healthcheck.sh
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+  spring-hr:
+    container_name: spring-hr
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@//oracle-database-xe-18400-slim:1521/ORCLPDB1
+    depends_on:
+      - oracle-database-xe-18400-slim
+volumes:
+  18xe-oradata:

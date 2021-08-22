@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: spring-hr-ingressroute
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/hr`)
+      kind: Rule
+      services:
+        - name: spring-hr
+          port: 8080

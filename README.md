@@ -2,6 +2,10 @@
 
 This is a sample spring application that uses the Oracle HR Schema.
 
+# Swagger
+
+The OpenAPI is at `/hr/openapi` and the Swagger UI is at `/hr/swagger/`.
+
 # How to Run
 
 ## Prerequisites

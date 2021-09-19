@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: spring-hr
-          image: iad.ocir.io/idf7f4b9nekk/oci-dev/spring-hr:0.1.1
+          image: iad.ocir.io/idf7f4b9nekk/oci-dev/spring-hr:0.1.2
           readinessProbe:
             httpGet:
               path: /hr/actuator/health

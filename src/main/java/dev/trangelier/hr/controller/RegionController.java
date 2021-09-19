@@ -69,6 +69,7 @@ public class RegionController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
         int rowsDeleted = regionRepository.delete(id);
         log.info("Deleted " + rowsDeleted);

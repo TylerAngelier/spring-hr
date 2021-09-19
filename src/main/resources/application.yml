@@ -38,3 +38,14 @@ management:
       show-details: always
     info:
       enabled: true
+
+#
+# Swagger
+#
+springdoc:
+  api-docs:
+    path: /openapi
+  swagger-ui:
+    path: /swagger
+    # disable petstore
+    disable-swagger-default-url: true

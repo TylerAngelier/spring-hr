@@ -5,6 +5,7 @@ import dev.trangelier.hr.model.CreatedRecord;
 import dev.trangelier.hr.model.Region;
 import dev.trangelier.hr.model.dto.RegionDto;
 import dev.trangelier.hr.repository.RegionRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping("/regions")
+@Slf4j
 public class RegionController {
 
     private final RegionRepository regionRepository;
     private final ModelMapper modelMapper;
-    Logger log = LoggerFactory.getLogger(RegionController.class);
 
     @Autowired
     RegionController(RegionRepository regionRepository, ModelMapper modelMapper) {

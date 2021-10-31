@@ -1,16 +1,17 @@
-FROM adoptopenjdk/openjdk11:armv7l-centos-jdk-11.0.6_10-slim as build
+FROM arm64v8/maven:3-openjdk-11-slim as build
 WORKDIR /workspace/app
 
-COPY mvnw .
-COPY .mvn .mvn
+#COPY mvnw .
+#COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw install
+#RUN ./mvnw install
+RUN mvn install
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-FROM adoptopenjdk/openjdk11:armv7l-centos-jdk-11.0.6_10-slim
-VOLUME /tmp
+FROM arm64v8/maven:3-openjdk-11-slim
+
 ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF

@@ -17,22 +17,26 @@ spec:
     spec:
       containers:
         - name: spring-hr
-          image: iad.ocir.io/idf7f4b9nekk/oci-dev/spring-hr:0.1.2
+          image: iad.ocir.io/idf7f4b9nekk/oci-dev/spring-hr:0.1.6
           readinessProbe:
             httpGet:
-              path: /hr/actuator/health
+              path: /hr/actuator/health/readiness
               port: 8080
             timeoutSeconds: 5
             periodSeconds: 15
             failureThreshold: 2
           livenessProbe:
             httpGet:
-              path: /hr/actuator/health
+              path: /hr/actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             timeoutSeconds: 8
             periodSeconds: 10
             failureThreshold: 2
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 10" ]
           env:
             - name: SPRING_DATASOURCE_URL
               valueFrom:

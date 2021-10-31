@@ -5,7 +5,7 @@ server:
   port: 8080
   servlet:
     context-path: /hr
-
+  shutdown: graceful
 #
 # Spring Configuration
 #
@@ -15,13 +15,13 @@ spring:
     username: hr
     password: super-secret-password
     driver-class-name: oracle.jdbc.OracleDriver
-  hikari:
-    minimumIdle: 5
-    maximumPoolSize: 20
-    idleTimeout: 30000
-    maxLifetime: 2000000
-    connectionTimeout: 30000
-    poolName: SpringHr
+    hikari:
+      minimumIdle: 5
+      maximumPoolSize: 20
+      idleTimeout: 30000
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+      poolName: SpringHr
   liquibase:
     changeLog: classpath:db/changelog.oracle.xml
 
@@ -29,12 +29,19 @@ spring:
 # Actuator
 #
 management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
   endpoints:
     web:
       exposure:
         include: health
   endpoint:
     health:
+      probes:
+        enabled: true
       show-details: always
     info:
       enabled: true
